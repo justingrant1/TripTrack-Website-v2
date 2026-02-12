@@ -5,6 +5,19 @@ document.addEventListener('DOMContentLoaded', function() {
   // Check for reduced motion preference
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Scroll Progress Bar
+  var scrollProgress = document.createElement('div');
+  scrollProgress.className = 'scroll-progress';
+  scrollProgress.style.width = '0%';
+  document.body.appendChild(scrollProgress);
+
+  window.addEventListener('scroll', function() {
+    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolled = (winScroll / height) * 100;
+    scrollProgress.style.width = scrolled + '%';
+  });
+
   // Intersection Observer for scroll animations
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
@@ -170,6 +183,37 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
+
+  // FAQ Accordion
+  var faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(function(item) {
+    var question = item.querySelector('.faq-question');
+    if (question) {
+      question.addEventListener('click', function() {
+        var wasActive = item.classList.contains('active');
+        
+        // Close all FAQ items
+        faqItems.forEach(function(otherItem) {
+          otherItem.classList.remove('active');
+        });
+        
+        // Toggle current item
+        if (!wasActive) {
+          item.classList.add('active');
+        }
+      });
+    }
+  });
+
+  // Add initials to testimonial avatars
+  document.querySelectorAll('.testimonial-card').forEach(function(card) {
+    var avatar = card.querySelector('.testimonial-avatar');
+    var name = card.querySelector('.testimonial-info strong');
+    if (avatar && name && !avatar.textContent) {
+      var initials = name.textContent.trim().split(' ').map(function(n) { return n[0]; }).join('');
+      avatar.textContent = initials;
+    }
+  });
 
   // Animate proof numbers (count up)
   var counted = false;
