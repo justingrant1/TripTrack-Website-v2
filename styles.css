@@ -314,6 +314,8 @@ a{color:inherit;text-decoration:none}
 .foot{padding:40px 0 20px;border-top:1px solid var(--border);padding-bottom:max(20px,env(safe-area-inset-bottom))}
 .foot-inner{display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center}
 @media(min-width:640px){.foot-inner{flex-direction:row;justify-content:space-between;text-align:left}}
+.foot-left{display:flex;flex-direction:column;align-items:center}
+@media(min-width:640px){.foot-left{align-items:flex-start}}
 .foot-sub{font-size:13px;color:var(--text-3);margin-top:6px}
 .foot-right{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
 @media(min-width:640px){.foot-right{gap:20px}}
